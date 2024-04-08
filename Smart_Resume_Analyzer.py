@@ -19,3 +19,8 @@ import plotly.express as px
 
 connection = pymysql.connect(host='localhost',user='root',password='',db='sra')
 cursor = connection.cursor()
+
+st.set_page_config(
+    page_title="Smart Resume Analyzer",
+    page_icon='./Logo/SRA_Logo.ico',
+)
