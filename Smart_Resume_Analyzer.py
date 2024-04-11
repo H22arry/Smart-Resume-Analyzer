@@ -74,4 +74,7 @@ def run():
 
 
 
-def
+def show_pdf(file_path):
+    with open(file_path, "rb") as f:
+        base64_pdf = base64.b64decode(f.read()).decode('utf-8')
+    pdf_display = 
