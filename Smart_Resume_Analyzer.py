@@ -35,8 +35,7 @@ def run():
     img = img.resize((250,250))
     st.image(img)
 
-    #create the DATABASE
-
+    #Create the DATABASE
     db_sql = """CREATE DATABASE IF NOT EXISTS SRA"""
     cursor.execute(db_sql)
 
@@ -70,11 +69,31 @@ def run():
             resume_data = ResumeParser(save_image_path).get_extracted_data()
             if resume_data:
                 resume_text = pdf_reader(save_image_path)
-
+                st.header("**Resume Analysis**")
+                st.success("Hello"+ resume_data['name'])
+                st.subheader("**Your Basic Info**")
+                try:
 
 
 
 def show_pdf(file_path):
     with open(file_path, "rb") as f:
         base64_pdf = base64.b64decode(f.read()).decode('utf-8')
-    pdf_display = 
+    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}"width="700" height="1000" type="application/pdf"></iframe>'
+    st.markdown(pdf_display,unsafe_allow_html=True)
+
+def pdf_reader(file):
+    resource_manager = PDFResourceManager()
+    fake_file_handle = io.StringIO()
+    Converter = TextConverter(resource_manager,fake_file_handle, laparams=LAParams())
+    page_interpreter = PDFPageInterpreter(resource_manager, Converter)
+    with open(file,'rb') as fh:
+        for page in PDFPage.get_pages(fh,caching=True,check_extractable=True):
+            page_interpreter.process_page(page)
+            print(page)
+        text = fake_file_handle.getvalue()
+
+    # close open handles
+    Converter.close()
+    fake_file_handle.close()
+    return text 
