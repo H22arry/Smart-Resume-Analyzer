@@ -73,15 +73,30 @@ def run():
                 st.success("Hello"+ resume_data['name'])
                 st.subheader("**Your Basic Info**")
                 try:
+                    st.text('Name:'+ resume_data['name'])
+                    st.text('Email:'+ resume_data['email'])
+                    st.text('Contact:'+ resume_data['mobile_number'])
+                    st.text('Resume Pages:'+str(resume_data['no_of_pages']))
+                except:
+                    pass
 
+                cand_level =''
+                if resume_data['no_of_pages'] == 1:
+                    cand_level = "Fresher"
+                    st.markdown('''<h4 style='text-align: left; color:#d73b5c;'> Look like a Fresher.</h4>''',unsafe_allow_html= True)
+                elif resume_data['no_of_pages'] == 2:
+                    cand_level = "Intermediate"
+                    st.markdown('''<h4 style='text-align: left; color:#1ed760;'> Look like an Intermediate one.</h4>''',unsafe_allow_html= True)
+                elif resume_data['no_of_pages'] >= 3:
+                    cand_level = "Exprienced"
+                    st.markdown('''<h4 style='text-align: left; color:#fba171;'> Look like an Exprienced one.</h4>''',unsafe_allow_html= True)
 
+                st.subheader("**Skills Recommendation**")
+                keywords = st_tags(label='### Skills possessed',text='Recommed Skills',value=resume_data['skills'],key='1')
 
-def show_pdf(file_path):
-    with open(file_path, "rb") as f:
-        base64_pdf = base64.b64decode(f.read()).decode('utf-8')
-    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}"width="700" height="1000" type="application/pdf"></iframe>'
-    st.markdown(pdf_display,unsafe_allow_html=True)
-
+                ## recommendation
+                
+                
 def pdf_reader(file):
     resource_manager = PDFResourceManager()
     fake_file_handle = io.StringIO()
@@ -96,4 +111,13 @@ def pdf_reader(file):
     # close open handles
     Converter.close()
     fake_file_handle.close()
-    return text 
+    return text
+
+
+def show_pdf(file_path):
+    with open(file_path, "rb") as f:
+        base64_pdf = base64.b64decode(f.read()).decode('utf-8')
+    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}"width="700" height="1000" type="application/pdf"></iframe>'
+    st.markdown(pdf_display,unsafe_allow_html=True)
+
+ 
