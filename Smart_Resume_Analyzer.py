@@ -95,8 +95,26 @@ def run():
                 keywords = st_tags(label='### Skills possessed',text='Recommed Skills',value=resume_data['skills'],key='1')
 
                 ## recommendation
-                
-                
+                ds_keyword = ['tensorflow','keras','pytorch','machine learning','deep Learning','flask','streamlit']
+                android_keyword = ['android development','flutter','kotlin','xml']
+                web_keyword = ['react','django','node js','react js','php','laravel','javascript','angular js','c#','flask','magento','wordpress']
+                ios_keyword = ['ios','ios development','swift','cocoa','cocoa touch']
+                uiux_keyword = ['ux','adobe xd','figma','zeplin','balsamiq','ui','prototyping','wireframe','storyframes']
+
+                recommended_skills = []
+                reco_field = ''
+                rec_course = ''
+
+                ##courses recommendation
+                for i in resume_data['skills']:
+                    ## Datascience recommendation
+                    if i.lower() in ds_keyword:
+                        print(i.lower())
+                        reco_field = 'Data Science'
+                        st.success("** Our analysis says you are looking for Data Science Job")
+                        
+
+
 def pdf_reader(file):
     resource_manager = PDFResourceManager()
     fake_file_handle = io.StringIO()
