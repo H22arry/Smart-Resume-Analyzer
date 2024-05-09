@@ -111,9 +111,27 @@ def run():
                     if i.lower() in ds_keyword:
                         print(i.lower())
                         reco_field = 'Data Science'
-                        st.success("** Our analysis says you are looking for Data Science Job")
-                        
+                        st.success("** Our analysis says you are looking for Data Science Job **")
+                        recommended_skills = ['Data Visualization','Predictive','Model creation','Data Cleaning','Machine Learning','Programming','Database Management']
+                        recommended_keywords = st_tags(label='### Recommended Skills for you.',
+                        text='Recommended Skills generated from System',value=recommended_skills,key = '6')
+                        st.markdown('''<h4 style='text-align:left; color:#led760;'> Adding this skills to resume will boost the chance of getting the job</h4>''',unsafe_allow_html=True)
+                        rec_course = course_recommender(Data Science)
+                        break 
 
+def course_recommender(course_list):
+    st.subheader("** Course & Certificates Recommendations** ")
+    c = 0
+    rec_course = []
+    no_of_reco = st.slider('Choose Number of Course Recommendation:',1,10,20)
+    random.shuffle(course_list)
+    for c_name, c_link in course_list:
+        c+=1
+        st.markdown(f"({c}) [{c_name}] ({c_link})")
+        rec_course.append(c_name)
+        if c == no_of_reco:
+            break
+    return rec_course 
 
 def pdf_reader(file):
     resource_manager = PDFResourceManager()
